@@ -4,3 +4,9 @@
   object-fit: cover;
   object-position: center;
 }
+
+@media screen and (max-width: 900px)  {
+  .header__logo {
+    margin-left: 27px;
+  }
+}
