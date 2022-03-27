@@ -1,0 +1,18 @@
+.profile__career {
+  margin: 16px 0 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 670px) {
+  .profile__career {
+    height: 14px;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    margin: 14px 0 0;
+  }
+}

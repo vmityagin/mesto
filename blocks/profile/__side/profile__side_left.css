@@ -1,0 +1,15 @@
+.profile__side_left {
+  width: 486px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 670px) {
+  .profile__side_left {
+    width: 286px;
+    flex-direction: column;
+    align-items: center;
+  }
+}
