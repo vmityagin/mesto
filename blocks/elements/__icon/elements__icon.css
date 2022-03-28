@@ -1,6 +1,9 @@
 .elements__icon {
   width: 22px;
   height: 19px;
+  margin: 0;
+  padding: 0;
+  border: 0;
   object-fit: cover;
   object-position: center;
   margin: 30px 20px 30px 29px;

@@ -21,3 +21,10 @@
 @import url('../blocks/elements/__icon/elements__icon.css');
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__copyright/footer__copyright.css');
+@import url('../blocks/form/form.css');
+@import url('../blocks/form/__career/form__career.css');
+@import url('../blocks/form/__name/form__name.css');
+@import url('../blocks/form/__save/form__save.css');
+@import url('../blocks/form/__title/form__title.css');
+@import url('../blocks/popup/popup.css');
+@import url('../blocks/popup/__icon_close/popup__icon_close.css');
