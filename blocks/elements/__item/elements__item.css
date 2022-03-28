@@ -1,0 +1,11 @@
+.elements__item {
+  width: 282px;
+  height: 361px;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
