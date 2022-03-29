@@ -1,6 +1,6 @@
 let popupEditor = document.querySelector ('.profile__edit-button');
 let EditorProfile = document.querySelector ('.popup');
-let IconClosePopup = document.querySelector ('.popup__icon_close');
+let IconClosePopup = document.querySelector ('.popup__icon-close');
 
 function toggleWindowPopup() {
   EditorProfile.classList.toggle('popup_active');

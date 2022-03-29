@@ -4,8 +4,8 @@
 @import url('../blocks/header/header.css');
 @import url('../blocks/header/__logo/header__logo.css');
 @import url('../blocks/profile/profile.css');
-@import url('../blocks/profile/__side/profile__side_left.css');
-@import url('../blocks/profile/__side/profile__side_right.css');
+@import url('../blocks/profile/__side/profile__side__left.css');
+@import url('../blocks/profile/__side/profile__side__right.css');
 @import url('../blocks/profile/__avatar/profile__avatar.css');
 @import url('../blocks/profile/__info/profile__info.css');
 @import url('../blocks/profile/__add-button/profile__add-button.css');
@@ -28,4 +28,4 @@
 @import url('../blocks/form/__title/form__title.css');
 @import url('../blocks/popup/popup.css');
 @import url('../blocks/popup/_active/popup_active.css');
-@import url('../blocks/popup/__icon_close/popup__icon_close.css');
+@import url('../blocks/popup/__icon-close/popup__icon-close.css');
