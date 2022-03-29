@@ -1,4 +1,5 @@
 .form__title {
+  font-family: inherit;
   margin: 0 0 54px;
   max-width: 330px;
   font-style: normal;
