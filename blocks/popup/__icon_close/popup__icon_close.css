@@ -17,3 +17,8 @@
     right: 0;
   }
 }
+
+.popup__icon_close:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
