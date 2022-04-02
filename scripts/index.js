@@ -1,6 +1,6 @@
 let changeProfileIcon = document.querySelector ('.profile__edit-button');
 let EditorProfile = document.querySelector ('.popup');
-let IconClosePopup = document.querySelector ('.form__сross');
+let IconClosePopup = document.querySelector ('.form__button_cross');
 let ProfileNameText = document.querySelector ('.profile__name');
 let ProfileCareerText = document.querySelector ('.profile__career');
 let ProfileNameInput = document.querySelector ('.form__input_name');

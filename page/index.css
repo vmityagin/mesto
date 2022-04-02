@@ -20,11 +20,11 @@
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__copyright/footer__copyright.css');
 @import url('../blocks/form/form.css');
+@import url('../blocks/form/__title/form__title.css');
 @import url('../blocks/form/__input/form__input.css');
 @import url('../blocks/form/__input/_career/form__input_career.css');
 @import url('../blocks/form/__input/_name/form__input_name.css');
-@import url('../blocks/form/__save/form__save.css');
-@import url('../blocks/form/__title/form__title.css');
-@import url('../blocks/form/__cross/form__cross.css');
+@import url('../blocks/form/__button/_cross/form__button_cross.css');
+@import url('../blocks/form/__button/_save/form__button_save.css');
 @import url('../blocks/popup/popup.css');
 @import url('../blocks/popup/_active/popup_active.css');

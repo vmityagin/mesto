@@ -1,4 +1,4 @@
-.form__save {
+.form__button_save {
   padding: 0;
   margin: 0;
   width: 358px;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 580px) {
-  .form__save {
+  .form__button_save {
     width: 238px;
     min-height: 46px;
     font-size: 14px;
@@ -23,7 +23,7 @@
   }
 }
 
-.form__save:hover {
+.form__button_save:hover {
   opacity: 0.8;
   cursor: pointer;
 }
