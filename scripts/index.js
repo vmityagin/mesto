@@ -1,10 +1,10 @@
 let changeProfileIcon = document.querySelector ('.profile__edit-button');
 let EditorProfile = document.querySelector ('.popup');
-let IconClosePopup = document.querySelector ('.popup__button');
+let IconClosePopup = document.querySelector ('.form__сross');
 let ProfileNameText = document.querySelector ('.profile__name');
 let ProfileCareerText = document.querySelector ('.profile__career');
-let ProfileNameInput = document.querySelector ('.form__name');
-let ProfileCareerInput = document.querySelector ('.form__career');
+let ProfileNameInput = document.querySelector ('.form__input_name');
+let ProfileCareerInput = document.querySelector ('.form__input_career');
 
 function toggleWindowPopup() {
   ProfileNameInput.value = ProfileNameText.textContent;
@@ -24,8 +24,8 @@ EditorProfile.addEventListener('click', onOverlayClick);
 
 let formElement = document.querySelector ('.form');// Воспользуйтесь методом querySelector()
 // Находим поля формы в DOM
-let nameInput = document.querySelector ('.form__name');// Воспользуйтесь инструментом .querySelector()
-let jobInput = document.querySelector ('.form__career'); // Воспользуйтесь инструментом .querySelector()
+let nameInput = document.querySelector ('.form__input_name');// Воспользуйтесь инструментом .querySelector()
+let jobInput = document.querySelector ('.form__input_career'); // Воспользуйтесь инструментом .querySelector()
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function formSubmitHandler (evt) {

@@ -1,4 +1,4 @@
-.form__input-style {
+.form__input {
   font-family: inherit;
   font-style: normal;
   font-weight: 400;
@@ -11,29 +11,29 @@
 }
 
 @media screen and (max-width: 580px) {
-  .form__input-style {
+  .form__input {
     max-width: 238px;
     font-size: 14px;
   }
 }
 
-.form__input-style::-webkit-input-placeholder {
+.form__input::-webkit-input-placeholder {
   color:#000000;
 }
 
-.form__input-style::-moz-placeholder {
+.form__input::-moz-placeholder {
   color:#000000;
 }
 
-.form__input-style::-ms-input-placeholder {
+.form__input::-ms-input-placeholder {
   color:#000000;
 }
 
-.form__input-style::placeholder {
+.form__input::placeholder {
   color:#000000;
 }
 
-.form__input-style:focus {
+.form__input:focus {
   outline: none;
   border-bottom: 2px solid black;
 }

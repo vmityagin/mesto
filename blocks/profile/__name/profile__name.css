@@ -14,12 +14,15 @@
 
 @media screen and (max-width: 670px) {
   .profile__name {
-    max-width: 242px;
+    max-width: 189px;
     margin: 0;
     height: 26px;
     font-size: 27px;
     line-height: 22px;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 

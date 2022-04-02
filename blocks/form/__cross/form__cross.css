@@ -1,4 +1,4 @@
-.popup__button {
+.form__сross {
   background: url('../../../images/popup__icon_close.svg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 580px) {
-  .popup__button {
+  .form__сross {
     width: 20px;
     height: 20px;
     top: -36px;
@@ -23,7 +23,7 @@
   }
 }
 
-.popup__button:hover {
+.form__сross:hover {
   opacity: 0.6;
   cursor: pointer;
 }
