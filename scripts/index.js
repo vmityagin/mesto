@@ -1,12 +1,18 @@
-let popupEditor = document.querySelector ('.profile__edit-button');
+let changeProfileIcon = document.querySelector ('.profile__edit-button');
 let EditorProfile = document.querySelector ('.popup');
-let IconClosePopup = document.querySelector ('.popup__icon-close');
+let IconClosePopup = document.querySelector ('.popup__button');
+let ProfileNameText = document.querySelector ('.profile__name');
+let ProfileCareerText = document.querySelector ('.profile__career');
+let ProfileNameInput = document.querySelector ('.form__name');
+let ProfileCareerInput = document.querySelector ('.form__career');
 
 function toggleWindowPopup() {
+  ProfileNameInput.value = ProfileNameText.textContent;
+  ProfileCareerInput.value = ProfileCareerText.textContent;
   EditorProfile.classList.toggle('popup_active');
 }
 
-popupEditor.addEventListener('click', toggleWindowPopup);
+changeProfileIcon.addEventListener('click', toggleWindowPopup);
 IconClosePopup.addEventListener('click', toggleWindowPopup);
 
 function onOverlayClick(event) {
@@ -16,7 +22,6 @@ function onOverlayClick(event) {
 }
 EditorProfile.addEventListener('click', onOverlayClick);
 
-// Находим форму в DOM
 let formElement = document.querySelector ('.form');// Воспользуйтесь методом querySelector()
 // Находим поля формы в DOM
 let nameInput = document.querySelector ('.form__name');// Воспользуйтесь инструментом .querySelector()
@@ -25,20 +30,19 @@ let jobInput = document.querySelector ('.form__career'); // Воспользуй
 // она никуда отправляться не будет
 function formSubmitHandler (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-                                                // Так мы можем определить свою логику отправки.
-                                                // О том, как это делать, расскажем позже.
-    let profileName = nameInput.value;
-    let profileCareer = jobInput.value;
+// Так мы можем определить свою логику отправки.
+// О том, как это делать, расскажем позже.
+    let profileNameForm = nameInput.value;
+    let profileCareerForm = jobInput.value;
     // Получите значение полей jobInput и nameInput из свойства value
     let profileNameStroke = document.querySelector('.profile__name');
     let profileCareerStroke = document.querySelector('.profile__career');
     // Выберите элементы, куда должны быть вставлены значения полей
-    profileNameStroke.textContent = profileName;
-    profileCareerStroke.textContent = profileCareer;
+    profileNameStroke.textContent = profileNameForm;
+    profileCareerStroke.textContent = profileCareerForm;
     // Вставьте новые значения с помощью textContent
     toggleWindowPopup();
 }
-
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
