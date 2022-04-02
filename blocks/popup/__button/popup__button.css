@@ -1,4 +1,12 @@
-.popup__icon-close {
+.popup__button {
+  background: url('../../../images/popup__icon_close.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  object-fit: cover;
+  object-position: center;
+  border: none;
+  padding: 0;
   width: 32px;
   height: 32px;
   object-fit: cover;
@@ -10,7 +18,7 @@
 }
 
 @media screen and (max-width: 580px) {
-  .popup__icon-close {
+  .popup__button {
     width: 20px;
     height: 20px;
     top: -36px;
@@ -18,7 +26,7 @@
   }
 }
 
-.popup__icon-close:hover {
+.popup__button:hover {
   opacity: 0.6;
   cursor: pointer;
 }

@@ -1,0 +1,40 @@
+.form__input-style {
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  max-width: 358px;
+}
+
+@media screen and (max-width: 580px) {
+  .form__input-style {
+    max-width: 238px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.form__input-style::-webkit-input-placeholder {
+  color:#000000;
+}
+
+.form__input-style::-moz-placeholder {
+  color:#000000;
+}
+
+.form__input-style::-ms-input-placeholder {
+  color:#000000;
+}
+
+.form__input-style::placeholder {
+  color:#000000;
+}
+
+.form__input-style:focus {
+  outline: none;
+  border-bottom: 2px solid black;
+}

@@ -1,9 +1,0 @@
-.profile__plus {
-  height: 16px;
-  width: 16px;
-}
-
-.profile__plus:hover {
-  opacity: 0.6;
-  cursor: pointer;
-}

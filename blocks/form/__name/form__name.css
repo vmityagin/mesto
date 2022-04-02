@@ -1,42 +1,10 @@
 .form__name {
-  font-family: inherit;
   margin: 0 0 30px;
-  max-width: 358px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  color: #000000; /* вот тут надо понять как в черный имя покрасить*/
-  border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.form__name::-webkit-input-placeholder {
-  color:#000000;
-}
-
-.form__name::-moz-placeholder {
-  color:#000000;
-}
-
-.form__name::-ms-input-placeholder {
-  color:#000000;
-}
-
-.form__name::placeholder {
-  color:#000000;
 }
 
 @media screen and (max-width: 580px) {
   .form__name {
     margin: 0 0 30px;
-    max-width: 238px;
-    font-size: 14px;
-    line-height: 17px;
   }
 }
 
-.form__name:focus {
-  outline: none;
-  border-bottom: 2px solid black;
-}

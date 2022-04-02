@@ -10,74 +10,81 @@
 
   <!-- Header сайта-->
   <header class="header">
-    <img class="header__logo" src="../mesto/images/header__logo.svg" alt="Логотип проекта Место">
+    <img class="header__logo" src="./images/header__logo.png" alt="Логотип проекта Место">
   </header>
+  <!-- Главная секция сайта-->
+  <main>
+    <!-- Профиль пользователя-->
+    <section class="profile">
 
-  <!-- Профиль пользователя-->
-  <section class="profile">
-
-    <div class="profile__side-left">
-      <img class="profile__avatar" src="./images/profile__avatar.jpg" alt="Фотография пользователя">
-      <div class="profile__info">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__career">Исследователь океана</p>
-        <img class="profile__edit-button" src="./images/profile__edit-button.svg" alt="Иконка-редактирования">
+      <div class="profile__side-left">
+        <img class="profile__avatar" src="./images/profile__avatar.jpg" alt="Фотография пользователя">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <p class="profile__career">Исследователь океана</p>
+          <button type="button" class="profile__edit-button"></button>
+        </div>
       </div>
-    </div>
-    <div class="profile__side-right">
-      <div class="profile__add-button">
-        <img class="profile__plus" src="./images/profile__add-button.svg" alt="Кнопка добавления">
+      <div class="profile__side-right">
+        <button type="button" class="profile__add-button"></button>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Секция с фотографиями-->
-  <section class="elements">
-    <div class="elements__item">
-      <img class="elements__image" src="./images/elements__image_dagestan.jpg" alt="Дагестан">
-      <h2 class="elements__title">Дагестан</h2>
-      <img class="elements__icon elements__icon-active" src="./images/elements__icon.svg" alt="лайк">
-    </div>
-    <div class="elements__item">
-      <img class="elements__image" src="./images/elements__image_sochi.jpg" alt="Дагестан">
-      <h2 class="elements__title">Сочи</h2>
-      <img class="elements__icon elements__icon-active" src="./images/elements__icon.svg" alt="лайк">
-    </div>
-    <div class="elements__item">
-      <img class="elements__image" src="./images/elements__image_uspenskii-monastir.jpg" alt="Дагестан">
-      <h2 class="elements__title">Успенский монастырь</h2>
-      <img class="elements__icon elements__icon-active" src="./images/elements__icon.svg" alt="лайк">
-    </div>
-    <div class="elements__item">
-      <img class="elements__image" src="./images/elements__image_moscow.jpg" alt="Дагестан">
-      <h2 class="elements__title">Москва</h2>
-      <img class="elements__icon elements__icon-active" src="./images/elements__icon.svg" alt="лайк">
-    </div>
-    <div class="elements__item">
-      <img class="elements__image" src="./images/elements__image_shiryaevo.jpg" alt="Дагестан">
-      <h2 class="elements__title">Самара</h2>
-      <img class="elements__icon elements__icon-active" src="./images/elements__icon.svg" alt="лайк">
-    </div>
-    <div class="elements__item">
-      <img class="elements__image" src="./images/elements__image_karachaeva-cherkesiya.jpg" alt="Дагестан">
-      <h2 class="elements__title">Карачаево-Черкесия</h2>
-      <img class="elements__icon elements__icon-active" src="./images/elements__icon.svg" alt="лайк">
-    </div>
-  </section>
+    <!-- Секция с фотографиями-->
+    <ul class="elements">
+      <li class="element">
+        <img class="element__image" src="./images/elements__image_dagestan.jpg" alt="Дагестан">
+        <h2 class="element__title">Дагестан</h2>
+        <button class="element__button element__button_active" type="button">
+        </button>
+      </li>
+      <li class="element">
+        <img class="element__image" src="./images/elements__image_sochi.jpg" alt="Дагестан">
+        <h2 class="element__title">Сочи</h2>
+        <button class="element__button element__button_active" type="button">
+        </button>
+      </li>
+      <li class="element">
+        <img class="element__image" src="./images/elements__image_uspenskii-monastir.jpg" alt="Дагестан">
+        <h2 class="element__title">Успенский монастырь</h2>
+        <button class="element__button element__button_active" type="button">
+        </button>
+      </li>
+      <li class="element">
+        <img class="element__image" src="./images/elements__image_moscow.jpg" alt="Дагестан">
+        <h2 class="element__title">Москва</h2>
+        <button class="element__button element__button_active" type="button">
+        </button>
+      </li>
+      <li class="element">
+        <img class="element__image" src="./images/elements__image_shiryaevo.jpg" alt="Дагестан">
+        <h2 class="element__title">Самара</h2>
+        <button class="element__button element__button_active" type="button">
+        </button>
+      </li>
+      <li class="element">
+        <img class="element__image" src="./images/elements__image_karachaeva-cherkesiya.jpg" alt="Дагестан">
+        <h2 class="element__title">Карачаево-Черкесия</h2>
+        <button class="element__button element__button_active" type="button">
+        </button>
+      </li>
+    </ul>
+  </main>
 
+  <!-- Футер сайта-->
   <footer class="footer">
-    <h3 class="footer__copyright">&copy; 2020 Mesto Russia</h3>
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
+  <!--Всплывающее окно анкеты-->
   <section class="popup">
-    <form class="popup__form form">
+    <form class="popup__form form" name="profile-edit">
       <h2 class="form__title">Редактировать профиль</h2>
-      <input type="text" name="firstname" class="form__name" value="Жак-Ив Кусто" maxlength="15" required>
-      <input type="text" name="career" class="form__career" value="Исследователь океана" maxlength="30" required>
+      <input type="text" name="firstname" class="form__name form__input-style" value="Жак-Ив Кусто" maxlength="15" required>
+      <input type="text" name="career" class="form__career form__input-style" value="Исследователь океана" maxlength="30" required>
       <button type="submit" class="form__save">Сохранить</button>
-      <img class="popup__icon-close" src="./images/popup__icon_close.svg" alt="иконка-закрытие попапа">
+      <button class="popup__button" src="./images/popup__icon_close.svg" alt="иконка-закрытие попапа"></button>
     </form>
-
   </section>
   <script src="./scripts/index.js"></script>
 </body>

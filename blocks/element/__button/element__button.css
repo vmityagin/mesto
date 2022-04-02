@@ -1,0 +1,22 @@
+.element__button {
+  background: url('../../../images/elements__icon.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-sizing: border-box;
+  object-fit: cover;
+  object-position: center;
+  width: 22px;
+  height: 19px;
+  padding: 0;
+  border: 0;
+  object-fit: cover;
+  object-position: center;
+  margin: 30px 20px 30px 29px;
+}
+
+.element__button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+
