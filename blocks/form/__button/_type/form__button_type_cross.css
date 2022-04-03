@@ -1,4 +1,4 @@
-.form__button_cross {
+.form__button_type_cross {
   background: url('../../../../images/popup__icon_close.svg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 580px) {
-  .form__button_cross {
+  .form__button_type_cross {
     width: 20px;
     height: 20px;
     top: -36px;
@@ -23,7 +23,7 @@
   }
 }
 
-.form__button_cross:hover {
+.form__button_type_cross:hover {
   opacity: 0.6;
   cursor: pointer;
 }
