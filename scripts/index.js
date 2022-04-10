@@ -1,6 +1,12 @@
 const changeProfileIcon = document.querySelector ('.profile__edit-button');
-const EditorProfile = document.querySelector ('.popup');
-const IconClosePopup = document.querySelector ('.form__button_type_cross');
+const addNewCardButton = document.querySelector ('.profile__add-button');
+
+const PopupEditorProfile = document.querySelector ('.popup_type_edit');
+const PopupaddNewCard = document.querySelector ('.popup_type_new-card');
+
+const IconCrossClosePopupEdit = PopupEditorProfile.querySelector ('.form__button_type_cross');
+const IconCrossClosePopupNewCard = PopupaddNewCard.querySelector ('.form__button_type_cross');
+
 const ProfileNameText = document.querySelector ('.profile__name');
 const ProfileCareerText = document.querySelector ('.profile__career');
 const ProfileNameInput = document.querySelector ('.form__input_type_name');
@@ -56,21 +62,41 @@ function getCard(item) {
 
 render();
 
-function toggleWindowPopup() {
+/*Функция открывает попап для редактирования поля
+и принимает значения карточки в input*/
+function OpenWindowPopup(popup) {
   ProfileNameInput.value = ProfileNameText.textContent;
   ProfileCareerInput.value = ProfileCareerText.textContent;
-  EditorProfile.classList.toggle('popup_active');
+  popup.classList.add('popup_active');
 }
 
-changeProfileIcon.addEventListener('click', toggleWindowPopup);
-IconClosePopup.addEventListener('click', toggleWindowPopup);
+/*Функция скрывает попап для редактирования поля
+и принимает значения карточки в input*/
+function closeWindowPopup(popup) {
+  popup.classList.remove('popup_active');
+}
 
-function onOverlayClick(event) {
+/*Прослушивание клика иконки "Изменить профиль" */
+changeProfileIcon.addEventListener('click', () => {OpenWindowPopup(PopupEditorProfile)});
+/*Прослушивание клика иконки "Крестик-Закрыть профиль" */
+IconCrossClosePopupEdit.addEventListener('click', () => {closeWindowPopup(PopupEditorProfile)});
+
+/*Прослушивание клика иконки "Добавить карточку" */
+addNewCardButton.addEventListener('click', () => {OpenWindowPopup(PopupaddNewCard)});
+/*Прослушивание клика иконки "Крестик-Закрыть добавление карточки " */
+IconCrossClosePopupNewCard.addEventListener('click', () => {closeWindowPopup(PopupaddNewCard)});
+
+/*Прослушивание клика по попапу, чтобы он не закрывался*/
+PopupEditorProfile.addEventListener('click', () => onOverlayClick(PopupEditorProfile, event));
+PopupaddNewCard.addEventListener('click',  () => onOverlayClick(PopupaddNewCard, event));
+
+/* Функция, которая не позволяет закрываться попапу по клику в любой области,
+кроме крестика*/
+function onOverlayClick(popupOverlay, event) {
   if (event.target === event.currentTarget) {
-    toggleWindowPopup();
+    closeWindowPopup(popupOverlay);
   }
 }
-EditorProfile.addEventListener('click', onOverlayClick);
 
 const formElement = document.querySelector ('.form');// Воспользуйтесь методом querySelector()
 // Находим поля формы в DOM
@@ -91,7 +117,7 @@ function formSubmitHandler (evt) {
     profileNameStroke.textContent = profileNameForm;
     profileCareerStroke.textContent = profileCareerForm;
     // Вставьте новые значения с помощью textContent
-    toggleWindowPopup();
+    closeWindowPopup();
 }
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
