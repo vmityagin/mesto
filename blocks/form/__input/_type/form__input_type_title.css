@@ -1,0 +1,13 @@
+.form__input_type_title {
+  margin: 0 0 30px;
+}
+
+@media screen and (max-width: 580px) {
+  .form__input_type_title {
+    margin: 0 0 30px;
+  }
+}
+
+.form__input_type_title::placeholder {
+  color: #c4c4c4;
+}
