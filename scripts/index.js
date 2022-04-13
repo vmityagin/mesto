@@ -139,3 +139,10 @@ function formSubmitHandler (evt) {
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
 
+function HandlerLikeActive(e) {
+  if (e.target.classList.contains('element__button')) {
+    const Element = e.target;
+    Element.classList.toggle('element__button_active');
+  }
+}
+listElements.addEventListener('click', HandlerLikeActive);
