@@ -1,0 +1,29 @@
+.form__button_type_create {
+  padding: 0;
+  margin: 0;
+  width: 358px;
+  min-height: 50px;
+  border-radius: 2px;
+  background-color: black;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 0;
+}
+
+@media screen and (max-width: 580px) {
+  .form__button_type_create {
+    width: 238px;
+    min-height: 46px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.form__button_type_create:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}

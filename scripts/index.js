@@ -6,14 +6,13 @@ const PopupaddNewCard = document.querySelector ('.popup_type_new-card');
 
 const IconCrossClosePopupEdit = PopupEditorProfile.querySelector ('.form__button_type_cross');
 const IconCrossClosePopupNewCard = PopupaddNewCard.querySelector ('.form__button_type_cross');
+const CreateButtonCard = PopupaddNewCard.querySelector('.form__button_type_create');
 
 const ProfileNameText = document.querySelector ('.profile__name');
 const ProfileCareerText = document.querySelector ('.profile__career');
 const ProfileNameInput = document.querySelector ('.form__input_type_name');
 const ProfileCareerInput = document.querySelector ('.form__input_type_career');
 
-const listElements = document.querySelector ('.elements');
-const templateSixBoxes = document.querySelector ('.template__six-boxes');
 const initialCards = [
   {
     name: 'Дагестан',
@@ -41,10 +40,13 @@ const initialCards = [
   },
 ];
 
+
+const listElements = document.querySelector ('.elements');
+const templateSixBoxes = document.querySelector ('.template__six-boxes');
 // Добавляет карточку на страницу из массива initialCards c помощью функции getCard
-function render() {
-  const html = initialCards.map(getCard);
-  listElements.append(...html);
+function render(ArrayCards) {
+  const html = ArrayCards.map(getCard);
+  listElements.prepend(...html);
 }
 
 // Копирует из HTML темплейт и возвращает элемент li с содержимым + заполняет данными из массива
@@ -60,7 +62,20 @@ function getCard(item) {
   return getTemplateSixBoxes;
 }
 
-render();
+render(initialCards);
+
+function handleAddCard (evt) {
+  evt.preventDefault();
+  let inputNameCard = document.querySelector('.form__input_type_title').value;
+  let inputLinkCard = document.querySelector('.form__input_type_link').value;
+  const arrayNewCardData = [{name: inputNameCard, link: inputLinkCard}];
+  render(arrayNewCardData);
+  closeWindowPopup(PopupaddNewCard);
+  document.querySelector('.form__input_type_title').value = "";
+  document.querySelector('.form__input_type_link').value = "";
+}
+
+CreateButtonCard.addEventListener('click', handleAddCard);
 
 // Функция открывает попап для редактирования поля
 // и принимает значения карточки в input
@@ -123,3 +138,4 @@ function formSubmitHandler (evt) {
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
+
