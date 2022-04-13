@@ -1,0 +1,10 @@
+.element__trash-icon {
+  width: 18px;
+  height: 19px;
+  object-fit: contain;
+  object-position: center;
+  box-sizing: border-box;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}

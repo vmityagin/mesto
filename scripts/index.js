@@ -146,3 +146,10 @@ function HandlerLikeActive(e) {
   }
 }
 listElements.addEventListener('click', HandlerLikeActive);
+
+listElements.addEventListener('click', RemoveCardElement);
+
+function RemoveCardElement(event) {
+  const Element = event.target.closest('.element');
+  Element.remove();
+}
