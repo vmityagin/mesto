@@ -4,8 +4,13 @@ const addNewCardButton = document.querySelector ('.profile__add-button');
 const PopupEditorProfile = document.querySelector ('.popup_type_edit');
 const PopupaddNewCard = document.querySelector ('.popup_type_new-card');
 
-const IconCrossClosePopupEdit = PopupEditorProfile.querySelector ('.form__button_type_cross');
-const IconCrossClosePopupNewCard = PopupaddNewCard.querySelector ('.form__button_type_cross');
+const PopupTypeImage = document.querySelector('.popup_type_image');
+const PopupBoxContainer = document.querySelector('.popup__box');
+
+const IconCrossClosePopupEdit = PopupEditorProfile.querySelector('.form__button_type_cross');
+const IconCrossClosePopupNewCard = PopupaddNewCard.querySelector('.form__button_type_cross');
+const IconCrossClosePopupImage = PopupTypeImage.querySelector('.popup__button_type_cross');
+
 const CreateButtonCard = PopupaddNewCard.querySelector('.form__button_type_create');
 
 const ProfileNameText = document.querySelector ('.profile__name');
@@ -41,8 +46,9 @@ const initialCards = [
 ];
 
 
-const listElements = document.querySelector ('.elements');
-const templateSixBoxes = document.querySelector ('.template__six-boxes');
+const listElements = document.querySelector('.elements');
+const templateSixBoxes = document.querySelector('.template__six-boxes');
+
 // Добавляет карточку на страницу из массива initialCards c помощью функции getCard
 function render(ArrayCards) {
   const html = ArrayCards.map(getCard);
@@ -121,19 +127,19 @@ const jobInput = document.querySelector ('.form__input_type_career'); // Вос�
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function formSubmitHandler (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-// Так мы можем определить свою логику отправки.
-// О том, как это делать, расскажем позже.
-    const profileNameForm = nameInput.value;
-    const profileCareerForm = jobInput.value;
-    // Получите значение полей jobInput и nameInput из свойства value
-    const profileNameStroke = document.querySelector('.profile__name');
-    const profileCareerStroke = document.querySelector('.profile__career');
-    // Выберите элементы, куда должны быть вставлены значения полей
-    profileNameStroke.textContent = profileNameForm;
-    profileCareerStroke.textContent = profileCareerForm;
-    // Вставьте новые значения с помощью textContent
-    closeWindowPopup(PopupEditorProfile);
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  // Так мы можем определить свою логику отправки.
+  // О том, как это делать, расскажем позже.
+  const profileNameForm = nameInput.value;
+  const profileCareerForm = jobInput.value;
+  // Получите значение полей jobInput и nameInput из свойства value
+  const profileNameStroke = document.querySelector('.profile__name');
+  const profileCareerStroke = document.querySelector('.profile__career');
+  // Выберите элементы, куда должны быть вставлены значения полей
+  profileNameStroke.textContent = profileNameForm;
+  profileCareerStroke.textContent = profileCareerForm;
+  // Вставьте новые значения с помощью textContent
+  closeWindowPopup(PopupEditorProfile);
 }
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
@@ -155,3 +161,22 @@ function RemoveCardElement(event) {
     Element.remove();
   }
 }
+
+const ElementPictureListElements = listElements.querySelectorAll('.element__image');
+
+function OpenWindowPicture(event) {
+  if (event.target.classList.contains('element__image')) {
+    const HandlerPictureClick = event.target.closest('.element');
+    const ActualSrcLink = HandlerPictureClick.querySelector('.element__image').src;
+    const ActualNameTitle = HandlerPictureClick.querySelector('.element__title').textContent;
+    PopupTypeImage.querySelector('.popup__picture').src = ActualSrcLink;
+    PopupTypeImage.querySelector('.popup__signature').textContent = ActualNameTitle;
+    PopupTypeImage.classList.add('popup_active');
+  }
+};
+
+listElements.addEventListener('click', OpenWindowPicture);
+
+// Прослушивание клика иконки "Крестик-Закрыть Popup Image"
+IconCrossClosePopupImage.addEventListener('click', () => {closeWindowPopup(PopupTypeImage)});
+PopupTypeImage.addEventListener('click',  () => onOverlayClick(PopupTypeImage, event));

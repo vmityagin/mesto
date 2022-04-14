@@ -1,0 +1,30 @@
+.popup__button_type_cross {
+  background: url(../../../../images/popup__icon_close.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  object-fit: cover;
+  object-position: center;
+  border: none;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: -34px;
+  right: -34px;
+}
+
+@media screen and (max-width: 580px) {
+  .popup__button_type_cross {
+      width: 20px;
+      height: 20px;
+      top: -36px;
+      right: 0;
+  }
+}
+
+.popup__button_type_cross:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
