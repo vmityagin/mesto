@@ -9,7 +9,7 @@ const PopupBoxContainer = document.querySelector('.popup__box');
 
 const IconCrossClosePopupEdit = PopupEditorProfile.querySelector('.form__button_type_cross');
 const IconCrossClosePopupNewCard = PopupaddNewCard.querySelector('.form__button_type_cross');
-const IconCrossClosePopupImage = PopupTypeImage.querySelector('.popup__button_type_cross');
+const IconCrossClosePopupImage = PopupTypeImage.querySelector('.popup__button_cross');
 
 const CreateButtonCard = PopupaddNewCard.querySelector('.form__button_type_create');
 

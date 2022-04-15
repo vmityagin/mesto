@@ -1,5 +1,5 @@
-.popup__button_type_cross {
-  background: url(../../../../images/popup__icon_close.svg);
+.popup__button_cross {
+  background: url(../../../images/popup__icon_close.svg);
   background-repeat: no-repeat;
   background-size: cover;
   box-sizing: border-box;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 580px) {
-  .popup__button_type_cross {
+  .popup__button_cross {
       width: 20px;
       height: 20px;
       top: -36px;
@@ -23,7 +23,7 @@
   }
 }
 
-.popup__button_type_cross:hover {
+.popup__button_cross:hover {
   opacity: 0.8;
   cursor: pointer;
 }
