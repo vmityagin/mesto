@@ -18,6 +18,9 @@ const ProfileCareerText = document.querySelector ('.profile__career');
 const ProfileNameInput = document.querySelector ('.form__input_type_name');
 const ProfileCareerInput = document.querySelector ('.form__input_type_career');
 
+const listElements = document.querySelector('.elements');
+const templateSixBoxes = document.querySelector('.template__six-boxes');
+
 const initialCards = [
   {
     name: 'Дагестан',
@@ -44,10 +47,10 @@ const initialCards = [
     link: './images/elements__image_karachaeva-cherkesiya.jpg'
   },
 ];
+// Функция, которая сохраняет данные в попапе "Редактирование профиля
+const formElement = document.querySelector ('.form');// Воспользуйтесь методом querySelector()
 
-
-const listElements = document.querySelector('.elements');
-const templateSixBoxes = document.querySelector('.template__six-boxes');
+const ElementPictureListElements = listElements.querySelectorAll('.element__image');
 
 // Добавляет карточку на страницу из массива initialCards c помощью функции getCard
 function render(ArrayCards) {
@@ -77,8 +80,7 @@ function handleAddCard (evt) {
   const arrayNewCardData = [{name: inputNameCard, link: inputLinkCard}];
   render(arrayNewCardData);
   closeWindowPopup(PopupaddNewCard);
-  document.querySelector('.form__input_type_title').value = "";
-  document.querySelector('.form__input_type_link').value = "";
+  PopupaddNewCard.querySelector('.form').reset();
 }
 
 CreateButtonCard.addEventListener('click', handleAddCard);
@@ -119,25 +121,19 @@ function onOverlayClick(popupOverlay, event) {
   }
 }
 
-// Функция, которая сохраняет данные в попапе "Редактирование профиля
-const formElement = document.querySelector ('.form');// Воспользуйтесь методом querySelector()
 // Находим поля формы в DOM
-const nameInput = document.querySelector ('.form__input_type_name');// Воспользуйтесь инструментом .querySelector()
-const jobInput = document.querySelector ('.form__input_type_career'); // Воспользуйтесь инструментом .querySelector()
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function formSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   // Так мы можем определить свою логику отправки.
   // О том, как это делать, расскажем позже.
-  const profileNameForm = nameInput.value;
-  const profileCareerForm = jobInput.value;
+  const profileNameForm = ProfileNameInput.value;
+  const profileCareerForm = ProfileCareerInput.value;
   // Получите значение полей jobInput и nameInput из свойства value
-  const profileNameStroke = document.querySelector('.profile__name');
-  const profileCareerStroke = document.querySelector('.profile__career');
   // Выберите элементы, куда должны быть вставлены значения полей
-  profileNameStroke.textContent = profileNameForm;
-  profileCareerStroke.textContent = profileCareerForm;
+  ProfileNameText.textContent = profileNameForm;
+  ProfileCareerText.textContent = profileCareerForm;
   // Вставьте новые значения с помощью textContent
   closeWindowPopup(PopupEditorProfile);
 }
@@ -162,7 +158,6 @@ function RemoveCardElement(event) {
   }
 }
 
-const ElementPictureListElements = listElements.querySelectorAll('.element__image');
 
 function OpenWindowPicture(event) {
   if (event.target.classList.contains('element__image')) {
