@@ -62,24 +62,17 @@ function render(ArrayCards) {
   cardsContainer.prepend(...html);
 }
 
-function renderCard(element, item) {
-  const imageCard = element.querySelector('.element__image');
-  const titleCard = element.querySelector('.element__title');
+// Копирует из HTML темплейт и возвращает элемент li с содержимым + заполняет данными из массива
+function getCard(item) {
+  const getTemplateSixBoxes = templateSixBoxes.content.cloneNode(true);
+
+  const imageCard = getTemplateSixBoxes.querySelector('.element__image');
+  const titleCard = getTemplateSixBoxes.querySelector('.element__title');
   titleCard.textContent = item.name;
   imageCard.src = item.link;
   imageCard.alt = item.name;
 
   imageCard.addEventListener('click', () => handlPreviewPicture(item));
-}
-
-const elementTemplateSixBoxes = templateSixBoxes.querySelectorAll('.element');
-
-// Копирует из HTML темплейт и возвращает элемент li с содержимым + заполняет данными из массива
-function getCard(item) {
-  const getTemplateSixBoxes = templateSixBoxes.content.cloneNode(true);
-  renderCard(getTemplateSixBoxes, item);
-  console.log(getTemplateSixBoxes);
-
   cardsContainer.addEventListener('click', handlerLikeActive);
   cardsContainer.addEventListener('click', removeCardElement);
 
@@ -125,7 +118,7 @@ function closeWindowPopup(popup) {
 }
 
 // Прослушивание клика иконки "Изменить профиль"
-changeProfileIcon.addEventListener('click', () => {openWindowPopup(popupEditProfile)});
+changeProfileIcon.addEventListener('click', () => {openPropfilePopup(); openWindowPopup(popupEditProfile)});
 // Прослушивание клика иконки "Крестик-Закрыть профиль"
 iconCrossClosePopupEdit.addEventListener('click', () => {closeWindowPopup(popupEditProfile)});
 
