@@ -250,3 +250,28 @@ formNewCard.addEventListener('submit', () => {
     enableValidation();
   }
 });
+
+
+function keyEscapeClosePopup() {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
+  popupList.forEach((popupElement) => {
+    popupElement.addEventListener('keydown', function(evt) {
+      if(evt.key === 'Escape'){
+        closeWindowPopup(popupElement);
+      }
+    });
+  });
+}
+
+keyEscapeClosePopup();
+
+function escapePopupClose(popupElement) {
+  document.addEventListener('keydown', (evt) => {
+    if(evt.key === 'Escape'){
+      closeWindowPopup(popupElement);
+    }
+  });
+}
+
+const popupList = Array.from(document.querySelectorAll('.popup'));
+popupList.forEach((popupElement)=> escapePopupClose(popupElement));
