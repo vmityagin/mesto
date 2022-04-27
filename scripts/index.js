@@ -88,8 +88,7 @@ const handlPreviewPicture = (data) => {
 
 render(initialCards);
 
-function handleAddCard (evt) {
-  evt.preventDefault();
+function handleAddCard() {
   const valueInputName = inputNameFormNewCard.value;
   const valueInputLink = inputLinkFormNewCard.value;
   const arrayNewCardData = [{name: valueInputName, link: valueInputLink}];
@@ -98,17 +97,16 @@ function handleAddCard (evt) {
   formNewCard.reset();
 }
 
-formNewCard.addEventListener('submit', handleAddCard);
-
 function openPropfilePopup() {
   profileNameInput.value = profileNameText.textContent; //заполняем поля формы
   profileCareerInput.value = profileCareerText.textContent; //вызываем функцию для открытия попапа
-  }
+}
 
 // Функция открывает попап для редактирования поля
 // и принимает значения карточки в input
 function openWindowPopup(popup) {
   popup.classList.add('popup_active');
+  enableValidation();
 }
 
 // Функция скрывает попап для редактирования поля
@@ -142,10 +140,7 @@ function onOverlayClick(popupOverlay, event) {
 // Находим поля формы в DOM
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function formSubmitHandler (evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  // Так мы можем определить свою логику отправки.
-  // О том, как это делать, расскажем позже.
+function formSubmitHandler() {
   const profileNameForm = profileNameInput.value;
   const profileCareerForm = profileCareerInput.value;
   // Получите значение полей jobInput и nameInput из свойства value
@@ -157,7 +152,7 @@ function formSubmitHandler (evt) {
 }
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formElementEditProfile.addEventListener('submit', formSubmitHandler);
+
 
 function handlerLikeActive(e) {
   if (e.target.classList.contains('element__button')) {
@@ -176,3 +171,82 @@ function removeCardElement(event) {
 // Прослушивание клика иконки "Крестик-Закрыть Popup Image"
 iconCrossClosePopupImage.addEventListener('click', () => {closeWindowPopup(popupTypeImage)});
 popupTypeImage.addEventListener('click',  () => onOverlayClick(popupTypeImage, event));
+
+
+function showInputError(formElement, inputElement, errorMessage) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('form__input_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('form__input-error_active');
+}
+
+function hideInputError(formElement,inputElement) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('form__input_type_error');
+  errorElement.classList.remove('form__input-error_active');
+  errorElement.textContent = '';
+}
+
+function isValid(formElement,inputElement) {
+  if(!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement,inputElement);
+  }
+}
+
+function setEventListener(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  const buttonElement = formElement.querySelector('.form__submit');
+
+  toggleButtonState(inputList, buttonElement);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', function() {
+      toggleButtonState(inputList, buttonElement);
+      isValid(formElement, inputElement);
+    });
+  });
+};
+
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll('.form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    setEventListener(formElement);
+  });
+};
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function toggleButtonState(inputList, buttonElement) {
+    if(hasInvalidInput(inputList)) {
+      buttonElement.classList.add('form__submit_inactive');
+    } else {
+      buttonElement.classList.remove('form__submit_inactive');
+    }
+};
+
+formElementEditProfile.addEventListener('submit', () => {
+  enableValidation();
+  if(formElementEditProfile.checkValidity()){
+    formSubmitHandler();
+  } else {
+    enableValidation();
+  }
+});
+
+formNewCard.addEventListener('submit', () => {
+  enableValidation();
+  if(formNewCard.checkValidity()){
+    handleAddCard();
+  } else {
+    enableValidation();
+  }
+});

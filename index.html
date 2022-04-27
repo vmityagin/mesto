@@ -53,22 +53,30 @@
 
   <!--Всплывающее окно анкеты-->
   <section class="popup popup_type_edit">
-    <form class="form" name="profile-edit">
+    <form class="form" name="profile-edit" novalidate>
       <h2 class="form__title">Редактировать профиль</h2>
-      <input class="form__input form__input_type_name" type="text" name="firstname" value="Жак-Ив Кусто" required>
-      <input class="form__input form__input_type_career" type="text" name="career" value="Исследователь океана" required>
-      <button class="form__button form__button_type_save" type="submit" >Сохранить</button>
+      <input id="name-input" class="form__input form__input_type_name" type="text" name="firstname" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+      <span class="form__input-error name-input-error"></span>
+
+      <input id="career-input" class="form__input form__input_type_career" type="text" name="career" value="Исследователь океана" minlength="2" maxlength="200" required>
+      <span class="form__input-error career-input-error"></span>
+
+      <button class="form__button form__submit form__button_type_save" type="submit" >Сохранить</button>
       <button class="form__button form__button_type_cross" type="button"></button>
     </form>
   </section>
 
   <!--Всплывающее окно карточки-->
   <section class="popup popup_type_new-card">
-    <form class="form" name="profile-edit">
+    <form class="form" name="profile-card" novalidate>
       <h2 class="form__title">Новое место</h2>
-      <input class="form__input form__input_type_title" type="text" name="titleCard" placeholder="Название" value="" required>
-      <input class="form__input form__input_type_link" type="url" name="linkCard" placeholder="Ссылка на картинку" value="" required>
-      <button class="form__button form__button_type_create" type="submit" >Создать</button>
+      <input id="title-input" class="form__input form__input_type_title" type="text" name="titleCard" placeholder="Название" value="" required>
+      <span class="form__input-error title-input-error"></span>
+
+      <input id="link-input" class="form__input form__input_type_link" type="url" name="linkCard" placeholder="Ссылка на картинку" value="" required>
+      <span class="form__input-error link-input-error"></span>
+
+      <button class="form__button form__submit form__button_type_create" type="submit" >Создать</button>
       <button class="form__button form__button_type_cross" type="button"></button>
     </form>
   </section>
