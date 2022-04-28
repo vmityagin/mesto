@@ -106,7 +106,14 @@ function openPropfilePopup() {
 // и принимает значения карточки в input
 function openWindowPopup(popup) {
   popup.classList.add('popup_active');
-  enableValidation();
+  enableValidation({
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'form__submit_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+});
 }
 
 // Функция скрывает попап для редактирования поля
@@ -173,49 +180,49 @@ iconCrossClosePopupImage.addEventListener('click', () => {closeWindowPopup(popup
 popupTypeImage.addEventListener('click',  () => onOverlayClick(popupTypeImage, event));
 
 
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, {inputErrorClass, errorClass}) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('form__input_type_error');
+  inputElement.classList.add(inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__input-error_active');
+  errorElement.classList.add(errorClass);
 }
 
-function hideInputError(formElement,inputElement) {
+function hideInputError(formElement,inputElement, {inputErrorClass, errorClass}) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('form__input_type_error');
-  errorElement.classList.remove('form__input-error_active');
+  inputElement.classList.remove(inputErrorClass);
+  errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
 }
 
-function isValid(formElement,inputElement) {
+function isValid(formElement,inputElement, {...rest}) {
   if(!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, rest);
   } else {
-    hideInputError(formElement,inputElement);
+    hideInputError(formElement,inputElement, rest);
   }
 }
 
-function setEventListener(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const buttonElement = formElement.querySelector('.form__submit');
+function setEventListener(formElement, {inputSelector, submitButtonSelector, ...rest}) {
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  const buttonElement = formElement.querySelector(submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, rest);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function() {
-      toggleButtonState(inputList, buttonElement);
-      isValid(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement, rest);
+      isValid(formElement, inputElement, rest);
     });
   });
 };
 
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll('.form'));
+function enableValidation({formSelector, ...rest}) {
+  const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    setEventListener(formElement);
+    setEventListener(formElement, rest);
   });
 };
 
@@ -225,29 +232,57 @@ function hasInvalidInput(inputList) {
   });
 }
 
-function toggleButtonState(inputList, buttonElement) {
+function toggleButtonState(inputList, buttonElement, {inactiveButtonClass}) {
     if(hasInvalidInput(inputList)) {
-      buttonElement.classList.add('form__submit_inactive');
+      buttonElement.classList.add(inactiveButtonClass);
     } else {
-      buttonElement.classList.remove('form__submit_inactive');
+      buttonElement.classList.remove(inactiveButtonClass);
     }
 };
 
 formElementEditProfile.addEventListener('submit', () => {
-  enableValidation();
+  enableValidation({
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit',
+    inactiveButtonClass: 'form__submit_inactive',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_active'
+  });
   if(formElementEditProfile.checkValidity()){
     formSubmitHandler();
   } else {
-    enableValidation();
+    enableValidation({
+      formSelector: '.form',
+      inputSelector: '.form__input',
+      submitButtonSelector: '.form__submit',
+      inactiveButtonClass: 'form__submit_inactive',
+      inputErrorClass: 'form__input_type_error',
+      errorClass: 'form__input-error_active'
+    });
   }
 });
 
 formNewCard.addEventListener('submit', () => {
-  enableValidation();
+  enableValidation({
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__submit',
+    inactiveButtonClass: 'form__submit_inactive',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__input-error_active'
+  });
   if(formNewCard.checkValidity()){
     handleAddCard();
   } else {
-    enableValidation();
+    enableValidation({
+      formSelector: '.form',
+      inputSelector: '.form__input',
+      submitButtonSelector: '.form__submit',
+      inactiveButtonClass: 'form__submit_inactive',
+      inputErrorClass: 'form__input_type_error',
+      errorClass: 'form__input-error_active'
+    });
   }
 });
 
