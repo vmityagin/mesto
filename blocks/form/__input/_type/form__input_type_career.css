@@ -1,10 +1,10 @@
 .form__input_type_career {
-  padding: 13px 0 5px;
+  padding: 0 0 5px;
 }
 
 @media screen and (max-width: 580px) {
   .form__input_type_career {
-    padding: 13px 0 5px;
+    padding: 0 0 5px;
   }
 }
 
