@@ -12,6 +12,7 @@ const iconCrossClosePopupNewCard = popupaddNewCard.querySelector('.form__button_
 const iconCrossClosePopupImage = popupTypeImage.querySelector('.popup__button-cross');
 
 const createButtonCard = popupaddNewCard.querySelector('.form__button_type_create');
+const saveButtonCard = popupaddNewCard.querySelector('.form__button_type_save');
 
 const profileNameText = document.querySelector ('.profile__name');
 const profileCareerText = document.querySelector ('.profile__career');
@@ -21,34 +22,7 @@ const profileCareerInput = document.querySelector ('.form__input_type_career');
 const cardsContainer = document.querySelector('.elements');
 const templateSixBoxes = document.querySelector('.template__six-boxes');
 
-const initialCards = [
-  {
-    name: 'Дагестан',
-    link: './images/elements__image_dagestan.jpg'
-  },
-  {
-    name: 'Сочи',
-    link: './images/elements__image_sochi.jpg'
-  },
-  {
-    name: 'Успенский монастырь',
-    link: './images/elements__image_uspenskii-monastir.jpg'
-  },
-  {
-    name: 'Москва',
-    link: './images/elements__image_moscow.jpg'
-  },
-  {
-    name: 'Самара',
-    link: './images/elements__image_shiryaevo.jpg'
-  },
-  {
-    name: 'Карачаево-Черкесия',
-    link: './images/elements__image_karachaeva-cherkesiya.jpg'
-  },
-];
-// Функция, которая сохраняет данные в попапе "Редактирование профиля
-const formElementEditProfile = popupEditProfile.querySelector ('.form');// Воспользуйтесь методом querySelector()
+const formElementEditProfile = popupEditProfile.querySelector ('.form');
 const popupImageElementPicture = popupTypeImage.querySelector('.popup__picture');
 const popupImageElementSignature = popupTypeImage.querySelector('.popup__signature');
 
@@ -57,8 +31,8 @@ const inputLinkFormNewCard = document.querySelector('.form__input_type_link');
 const formNewCard = popupaddNewCard.querySelector('.form');
 
 // Добавляет карточку на страницу из массива initialCards c помощью функции getCard
-function render(ArrayCards) {
-  const html = ArrayCards.map(getCard);
+function render(arrayCards) {
+  const html = arrayCards.map(getCard);
   cardsContainer.prepend(...html);
 }
 
@@ -68,13 +42,15 @@ function getCard(item) {
 
   const imageCard = getTemplateSixBoxes.querySelector('.element__image');
   const titleCard = getTemplateSixBoxes.querySelector('.element__title');
+  const likeCard = getTemplateSixBoxes.querySelector('.element__button');
+  const trashCard = getTemplateSixBoxes.querySelector('.element__trash-icon');
   titleCard.textContent = item.name;
   imageCard.src = item.link;
   imageCard.alt = item.name;
 
   imageCard.addEventListener('click', () => handlPreviewPicture(item));
-  cardsContainer.addEventListener('click', handlerLikeActive);
-  cardsContainer.addEventListener('click', removeCardElement);
+  likeCard.addEventListener('click', handlerLikeActive);
+  trashCard.addEventListener('click', removeCardElement);
 
   return getTemplateSixBoxes;
 };
@@ -86,8 +62,6 @@ const handlPreviewPicture = (data) => {
   openWindowPopup(popupTypeImage);
 };
 
-render(initialCards);
-
 function handleAddCard() {
   const valueInputName = inputNameFormNewCard.value;
   const valueInputLink = inputLinkFormNewCard.value;
@@ -98,32 +72,28 @@ function handleAddCard() {
 }
 
 function openPropfilePopup() {
-  profileNameInput.value = profileNameText.textContent; //заполняем поля формы
-  profileCareerInput.value = profileCareerText.textContent; //вызываем функцию для открытия попапа
+  profileNameInput.value = profileNameText.textContent;
+  profileCareerInput.value = profileCareerText.textContent;
 }
 
-// Функция открывает попап для редактирования поля
-// и принимает значения карточки в input
+// Функция открывает попап
 function openWindowPopup(popup) {
   popup.classList.add('popup_active');
-  enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit',
-  inactiveButtonClass: 'form__submit_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-});
+  escapePopupClose(popup);
 }
 
-// Функция скрывает попап для редактирования поля
-// и принимает значения карточки в input
+// Функция скрывает попап
 function closeWindowPopup(popup) {
   popup.classList.remove('popup_active');
 }
 
+function handleEditProfilePopup() {
+  openPropfilePopup();
+  openWindowPopup(popupEditProfile)
+}
+
 // Прослушивание клика иконки "Изменить профиль"
-changeProfileIcon.addEventListener('click', () => {openPropfilePopup(); openWindowPopup(popupEditProfile)});
+changeProfileIcon.addEventListener('click', handleEditProfilePopup);
 // Прослушивание клика иконки "Крестик-Закрыть профиль"
 iconCrossClosePopupEdit.addEventListener('click', () => {closeWindowPopup(popupEditProfile)});
 
@@ -147,7 +117,7 @@ function onOverlayClick(popupOverlay, event) {
 // Находим поля формы в DOM
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function formSubmitHandler() {
+function handleProfileFormSubmit() {
   const profileNameForm = profileNameInput.value;
   const profileCareerForm = profileCareerInput.value;
   // Получите значение полей jobInput и nameInput из свойства value
@@ -157,87 +127,19 @@ function formSubmitHandler() {
   // Вставьте новые значения с помощью textContent
   closeWindowPopup(popupEditProfile);
 }
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-
 
 function handlerLikeActive(e) {
-  if (e.target.classList.contains('element__button')) {
-    const element = e.target;
-    element.classList.toggle('element__button_active');
-  }
+  e.target.classList.toggle('element__button_active');
 }
 
 function removeCardElement(event) {
-  if (event.target.classList.contains('element__trash-icon')) {
-    const element = event.target.closest('.element');
-    element.remove();
-  }
+  const element = event.target.closest('.element');
+  element.remove();
 }
 
 // Прослушивание клика иконки "Крестик-Закрыть Popup Image"
 iconCrossClosePopupImage.addEventListener('click', () => {closeWindowPopup(popupTypeImage)});
 popupTypeImage.addEventListener('click',  () => onOverlayClick(popupTypeImage, event));
-
-formElementEditProfile.addEventListener('submit', () => {
-  enableValidation({
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit',
-    inactiveButtonClass: 'form__submit_inactive',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_active'
-  });
-  if(formElementEditProfile.checkValidity()){
-    formSubmitHandler();
-  } else {
-    enableValidation({
-      formSelector: '.form',
-      inputSelector: '.form__input',
-      submitButtonSelector: '.form__submit',
-      inactiveButtonClass: 'form__submit_inactive',
-      inputErrorClass: 'form__input_type_error',
-      errorClass: 'form__input-error_active'
-    });
-  }
-});
-
-formNewCard.addEventListener('submit', () => {
-  enableValidation({
-    formSelector: '.form',
-    inputSelector: '.form__input',
-    submitButtonSelector: '.form__submit',
-    inactiveButtonClass: 'form__submit_inactive',
-    inputErrorClass: 'form__input_type_error',
-    errorClass: 'form__input-error_active'
-  });
-  if(formNewCard.checkValidity()){
-    handleAddCard();
-  } else {
-    enableValidation({
-      formSelector: '.form',
-      inputSelector: '.form__input',
-      submitButtonSelector: '.form__submit',
-      inactiveButtonClass: 'form__submit_inactive',
-      inputErrorClass: 'form__input_type_error',
-      errorClass: 'form__input-error_active'
-    });
-  }
-});
-
-
-function keyEscapeClosePopup() {
-  const popupList = Array.from(document.querySelectorAll('.popup'));
-  popupList.forEach((popupElement) => {
-    popupElement.addEventListener('keydown', function(evt) {
-      if(evt.key === 'Escape'){
-        closeWindowPopup(popupElement);
-      }
-    });
-  });
-}
-
-keyEscapeClosePopup();
 
 function escapePopupClose(popupElement) {
   document.addEventListener('keydown', (evt) => {
@@ -247,5 +149,5 @@ function escapePopupClose(popupElement) {
   });
 }
 
-const popupList = Array.from(document.querySelectorAll('.popup'));
-popupList.forEach((popupElement)=> escapePopupClose(popupElement));
+formNewCard.addEventListener('submit', handleAddCard);
+formElementEditProfile.addEventListener('submit', handleProfileFormSubmit);

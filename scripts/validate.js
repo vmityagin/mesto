@@ -53,7 +53,18 @@ function hasInvalidInput(inputList) {
 function toggleButtonState(inputList, buttonElement, {inactiveButtonClass}) {
     if(hasInvalidInput(inputList)) {
       buttonElement.classList.add(inactiveButtonClass);
+      buttonElement.disabled = true;
     } else {
       buttonElement.classList.remove(inactiveButtonClass);
+      buttonElement.disabled = false;
     }
 };
+
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'form__submit_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+});
