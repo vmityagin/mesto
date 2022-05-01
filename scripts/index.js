@@ -69,6 +69,9 @@ function handleAddCard() {
   render(arrayNewCardData);
   closeWindowPopup(popupaddNewCard);
   formNewCard.reset();
+  const buttonSubmit = formNewCard.querySelector('.form__button');
+  buttonSubmit.classList.add('form__submit_inactive');
+  buttonSubmit.disabled = true;
 }
 
 function openPropfilePopup() {
@@ -79,12 +82,14 @@ function openPropfilePopup() {
 // Функция открывает попап
 function openWindowPopup(popup) {
   popup.classList.add('popup_active');
-  escapePopupClose(popup);
+  document.addEventListener('keydown', escapePopupClose);
 }
 
 // Функция скрывает попап
-function closeWindowPopup(popup) {
-  popup.classList.remove('popup_active');
+function closeWindowPopup() {
+  const openedPopup = document.querySelector('.popup_active');
+  openedPopup.classList.remove('popup_active');
+  document.removeEventListener('keydown', escapePopupClose);
 }
 
 function handleEditProfilePopup() {
@@ -95,22 +100,23 @@ function handleEditProfilePopup() {
 // Прослушивание клика иконки "Изменить профиль"
 changeProfileIcon.addEventListener('click', handleEditProfilePopup);
 // Прослушивание клика иконки "Крестик-Закрыть профиль"
-iconCrossClosePopupEdit.addEventListener('click', () => {closeWindowPopup(popupEditProfile)});
+iconCrossClosePopupEdit.addEventListener('click', closeWindowPopup);
 
 // Прослушивание клика иконки "Добавить карточку"
 addNewCardButton.addEventListener('click', () => {openWindowPopup(popupaddNewCard)});
 // Прослушивание клика иконки "Крестик-Закрыть добавление карточки"
-iconCrossClosePopupNewCard.addEventListener('click', () => {closeWindowPopup(popupaddNewCard)});
+iconCrossClosePopupNewCard.addEventListener('click', closeWindowPopup);
 
 // Прослушивание клика по попапу, чтобы он не закрывался
-popupEditProfile.addEventListener('click', () => onOverlayClick(popupEditProfile, event));
-popupaddNewCard.addEventListener('click',  () => onOverlayClick(popupaddNewCard, event));
+popupEditProfile.addEventListener('click', onOverlayClick);
+popupaddNewCard.addEventListener('click', onOverlayClick);
+popupTypeImage.addEventListener('click', onOverlayClick);
 
 // Функция, которая не позволяет закрываться попапу по клику в любой области,
 // кроме крестика
-function onOverlayClick(popupOverlay, event) {
+function onOverlayClick(event) {
   if (event.target === event.currentTarget) {
-    closeWindowPopup(popupOverlay);
+    closeWindowPopup(event.target);
   }
 }
 
@@ -138,15 +144,13 @@ function removeCardElement(event) {
 }
 
 // Прослушивание клика иконки "Крестик-Закрыть Popup Image"
-iconCrossClosePopupImage.addEventListener('click', () => {closeWindowPopup(popupTypeImage)});
-popupTypeImage.addEventListener('click',  () => onOverlayClick(popupTypeImage, event));
+iconCrossClosePopupImage.addEventListener('click', closeWindowPopup);
 
-function escapePopupClose(popupElement) {
-  document.addEventListener('keydown', (evt) => {
-    if(evt.key === 'Escape'){
-      closeWindowPopup(popupElement);
-    }
-  });
+function escapePopupClose(evt) {
+  if(evt.key === 'Escape'){
+    const popupOpened = document.querySelector('.popup_active');
+    closeWindowPopup(popupOpened);
+  }
 }
 
 formNewCard.addEventListener('submit', handleAddCard);
