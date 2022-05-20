@@ -1,5 +1,5 @@
-import Card from './cards.js';
-import initialCards from './cards.js';
+import {Card, initialCards} from './cards.js';
+import {FormValidator} from './validate.js';
 
 const changeProfileIcon = document.querySelector ('.profile__edit-button');
 const addNewCardButton = document.querySelector ('.profile__add-button');
@@ -123,5 +123,20 @@ function escapePopupClose(evt) {
 
 formNewCard.addEventListener('submit', handleAddCard);
 formElementEditProfile.addEventListener('submit', handleProfileFormSubmit);
+
+const config = {
+  formSelector: '.form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit',
+  inactiveButtonClass: 'form__submit_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
+
+const formList = Array.from(document.querySelectorAll(config.formSelector));
+formList.forEach((formElement) => {
+  new FormValidator(formElement, config).enableValidation();
+});
+
 
 export {handlPreviewPicture};

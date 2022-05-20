@@ -1,4 +1,5 @@
 import { handlPreviewPicture } from "./index.js";
+
 export const initialCards = [
   {
     name: 'Дагестан',
@@ -26,7 +27,7 @@ export const initialCards = [
   },
 ];
 
-export default class Card {
+export class Card {
   constructor(data, selector) {
     this._name = data.name;
     this._link = data.link;
