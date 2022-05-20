@@ -1,6 +1,7 @@
 import Card from './cards.js';
 import initialCards from './cards.js';
 
+/*
 const changeProfileIcon = document.querySelector ('.profile__edit-button');
 const addNewCardButton = document.querySelector ('.profile__add-button');
 
@@ -22,6 +23,9 @@ const profileCareerText = document.querySelector ('.profile__career');
 const profileNameInput = document.querySelector ('.form__input_type_name');
 const profileCareerInput = document.querySelector ('.form__input_type_career');
 
+const cardsContainer = document.querySelector('.elements');
+const templateSixBoxes = document.querySelector('.template__six-boxes');
+
 const formElementEditProfile = popupEditProfile.querySelector ('.form');
 const popupImageElementPicture = popupTypeImage.querySelector('.popup__picture');
 const popupImageElementSignature = popupTypeImage.querySelector('.popup__signature');
@@ -30,21 +34,43 @@ const inputNameFormNewCard = document.querySelector('.form__input_type_title');
 const inputLinkFormNewCard = document.querySelector('.form__input_type_link');
 const formNewCard = popupaddNewCard.querySelector('.form');
 
+// Добавляет карточку на страницу из массива initialCards c помощью функции getCard
+function render(arrayCards) {
+  const html = arrayCards.map(getCard);
+  cardsContainer.prepend(...html);
+}
 
-const handlPreviewPicture = (name, link) => {
-  popupImageElementPicture.src = link;
-  popupImageElementPicture.alt = name;
-  popupImageElementSignature.textContent = name;
+// Копирует из HTML темплейт и возвращает элемент li с содержимым + заполняет данными из массива
+function getCard(item) {
+  const getTemplateSixBoxes = templateSixBoxes.content.cloneNode(true);
+
+  const imageCard = getTemplateSixBoxes.querySelector('.element__image');
+  const titleCard = getTemplateSixBoxes.querySelector('.element__title');
+  const likeCard = getTemplateSixBoxes.querySelector('.element__button');
+  const trashCard = getTemplateSixBoxes.querySelector('.element__trash-icon');
+  titleCard.textContent = item.name;
+  imageCard.src = item.link;
+  imageCard.alt = item.name;
+
+  imageCard.addEventListener('click', () => handlPreviewPicture(item));
+  likeCard.addEventListener('click', handlerLikeActive);
+  trashCard.addEventListener('click', removeCardElement);
+
+  return getTemplateSixBoxes;
+};
+
+const handlPreviewPicture = (data) => {
+  popupImageElementPicture.src = data.link;
+  popupImageElementPicture.alt = data.name;
+  popupImageElementSignature.textContent = data.name;
   openWindowPopup(popupTypeImage);
 };
 
 function handleAddCard() {
   const valueInputName = inputNameFormNewCard.value;
   const valueInputLink = inputLinkFormNewCard.value;
-  const arrayNewCardData = {name: valueInputName, link: valueInputLink};
-  const newCardContainer = new Card(arrayNewCardData, '.template__six-boxes');
-  const newCardElement = newCardContainer.generateElement();
-  document.querySelector('.elements').prepend(newCardElement);
+  const arrayNewCardData = [{name: valueInputName, link: valueInputLink}];
+  render(arrayNewCardData);
   closeWindowPopup(popupaddNewCard);
   formNewCard.reset();
   const buttonSubmit = formNewCard.querySelector('.form__button');
@@ -111,6 +137,15 @@ function handleProfileFormSubmit() {
   closeWindowPopup(popupEditProfile);
 }
 
+function handlerLikeActive(e) {
+  e.target.classList.toggle('element__button_active');
+}
+
+function removeCardElement(event) {
+  const element = event.target.closest('.element');
+  element.remove();
+}
+
 // Прослушивание клика иконки "Крестик-Закрыть Popup Image"
 iconCrossClosePopupImage.addEventListener('click', () => {closeWindowPopup(popupTypeImage)});
 
@@ -123,5 +158,4 @@ function escapePopupClose(evt) {
 
 formNewCard.addEventListener('submit', handleAddCard);
 formElementEditProfile.addEventListener('submit', handleProfileFormSubmit);
-
-export {handlPreviewPicture};
+ */
