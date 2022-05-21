@@ -64,9 +64,6 @@ function handleAddCard() {
   sectionDomElements.prepend(createCard(arrayNewCardData));
   closeWindowPopup(popupaddNewCard);
   formNewCard.reset();
-/*   const buttonSubmit = formNewCard.querySelector('.form__button');
-  buttonSubmit.classList.add('form__submit_inactive');
-  buttonSubmit.disabled = true; */
 }
 
 function createCard(array) {
