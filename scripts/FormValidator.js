@@ -69,4 +69,17 @@ export class FormValidator {
     this._errorElement.classList.remove(this._errorClass);
     this._errorElement.textContent = '';
   }
+
+  resesValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      inputElement.value = '';
+      this._errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+      inputElement.classList.remove(this._inputErrorClass);
+      this._errorElement.classList.remove(this._errorClass);
+      this._errorElement.textContent = '';
+
+    })
+  }
 }
