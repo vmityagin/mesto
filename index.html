@@ -53,7 +53,7 @@
 
   <!--Всплывающее окно анкеты-->
   <section class="popup popup_type_edit">
-    <form class="form" name="profile-edit" novalidate>
+    <form class="form single" name="profile-edit" novalidate>
       <h2 class="form__title">Редактировать профиль</h2>
       <input id="name-input" class="form__input form__input_type_name" type="text" name="firstname" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
       <span class="form__input-error name-input-error"></span>
@@ -68,7 +68,7 @@
 
   <!--Всплывающее окно карточки-->
   <section class="popup popup_type_new-card">
-    <form class="form" name="profile-card" novalidate>
+    <form class="form single" name="profile-card" novalidate>
       <h2 class="form__title">Новое место</h2>
       <input id="title-input" class="form__input form__input_type_title" type="text" name="titleCard" placeholder="Название" value="" minlength="2" required>
       <span class="form__input-error title-input-error"></span>
@@ -83,7 +83,7 @@
 
   <!--Всплывающее изображение-->
   <section class="popup popup_type_image">
-    <div class="popup__box">
+    <div class="popup__box single">
       <img class="popup__picture" src="./images/elements__image_dagestan.jpg" alt="Изображение из путешествия">
       <h2 class="popup__signature">Проверка</h2>
       <button class="popup__button-cross single__button_type_cross" type="button"></button>
