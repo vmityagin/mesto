@@ -101,7 +101,7 @@ popups.forEach((popup) => {
       closeWindowPopup(popup);
     }
 
-    if (evt.target.classList.contains('button_type_cross')) {
+    if (evt.target.classList.contains('single__button_type_cross')) {
       closeWindowPopup(popup);
     }
   });
