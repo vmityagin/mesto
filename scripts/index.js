@@ -49,6 +49,8 @@ const initialCards = [
     link: './images/elements__image_karachaeva-cherkesiya.jpg'
   },
 ];
+const domCardContainer = document.querySelector('.elements');
+const popups = document.querySelectorAll('.popup');
 
 function handleCardClick(name, link) {
   popupImageElementPicture.src = link;
@@ -67,7 +69,7 @@ function handleAddCard() {
 }
 
 function createCard(array) {
-  const newCardContainer = new Card(array, '.template__six-boxes');
+  const newCardContainer = new Card(array, '.template__six-boxes', handleCardClick);
   const newCardElement = newCardContainer.generateElement();
   return newCardElement;
 }
@@ -94,14 +96,13 @@ function handleEditProfilePopup() {
   openWindowPopup(popupEditProfile)
 }
 
-const popups = document.querySelectorAll('.popup');
 popups.forEach((popup) => {
   popup.addEventListener('mousedown', (evt) => {
     if (evt.target.classList.contains('popup_active')) {
       closeWindowPopup(popup);
     }
 
-    if (evt.target.classList.contains('single__button_type_cross')) {
+    if (evt.target.classList.contains('single__cross')) {
       closeWindowPopup(popup);
     }
   });
@@ -130,7 +131,7 @@ function escapePopupClose(evt) {
 
 formNewCard.addEventListener('submit', () => {
   handleAddCard();
-  FormValidators['profile-card'].resesValidation();
+  formValidators['profile-card'].resesValidation();
 });
 
 formElementEditProfile.addEventListener('submit', handleProfileFormSubmit);
@@ -144,7 +145,7 @@ const config = {
   errorClass: 'form__input-error_active'
 };
 
-const FormValidators = {};
+const formValidators = {};
 
 const enableValidation = (config) => {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
@@ -152,29 +153,27 @@ const enableValidation = (config) => {
     const validator = new FormValidator(formElement, config);
     const formName = formElement.getAttribute('name');
 
-    FormValidators[formName] = validator;
+    formValidators[formName] = validator;
     validator.enableValidation();
   });
 };
 
 enableValidation(config);
 
-initialCards.forEach((item) => {
-  const card = new Card(item, '.template__six-boxes');
-  const cardElement = card.generateElement();
 
-  document.querySelector('.elements').prepend(cardElement);
+initialCards.forEach((item) => {
+  domCardContainer.prepend(createCard(item));
 })
 
 // Прослушивание клика иконки "Добавить карточку"
 addNewCardButton.addEventListener('click', () => {
-  FormValidators['profile-card'].resesValidation();
+  formValidators['profile-card'].resesValidation();
   openWindowPopup(popupaddNewCard);
 });
 
 // Прослушивание клика иконки "Изменить профиль"
 changeProfileIcon.addEventListener('click', () => {
-  FormValidators['profile-edit'].resesValidation();
+  formValidators['profile-edit'].resesValidation();
   handleEditProfilePopup();
 });
 
