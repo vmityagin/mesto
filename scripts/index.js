@@ -21,7 +21,6 @@ const popupImageElementSignature = popupTypeImage.querySelector('.popup__signatu
 const inputNameFormNewCard = document.querySelector('.form__input_type_title');
 const inputLinkFormNewCard = document.querySelector('.form__input_type_link');
 const formNewCard = popupaddNewCard.querySelector('.form');
-const sectionDomElements = document.querySelector('.elements');
 
 const initialCards = [
   {
@@ -63,7 +62,7 @@ function handleAddCard() {
   const valueInputName = inputNameFormNewCard.value;
   const valueInputLink = inputLinkFormNewCard.value;
   const arrayNewCardData = {name: valueInputName, link: valueInputLink};
-  sectionDomElements.prepend(createCard(arrayNewCardData));
+  domCardContainer.prepend(createCard(arrayNewCardData));
   closeWindowPopup(popupaddNewCard);
   formNewCard.reset();
 }
