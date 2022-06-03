@@ -70,7 +70,7 @@ export class FormValidator {
     this._errorElement.textContent = '';
   }
 
-  resesValidation() {
+  resetValidation() {
     this._toggleButtonState();
 
     this._inputList.forEach((inputElement) => {

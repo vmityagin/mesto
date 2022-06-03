@@ -1,0 +1,8 @@
+const domCardContainer = '.elements';
+const changeProfileIcon = document.querySelector ('.profile__edit-button');
+const addNewCardButton = document.querySelector ('.profile__add-button');
+
+const inputNameForm = document.querySelector('.form__input_type_name');
+const inputCareerForm = document.querySelector('.form__input_type_career');
+
+export {domCardContainer, changeProfileIcon, addNewCardButton, inputNameForm, inputCareerForm};

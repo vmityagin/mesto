@@ -1,10 +1,10 @@
+import PopupWithImage from "./PopupWithImage.js";
 
 export class Card {
-  constructor(data, selector, handleCardClick) {
+  constructor(data, selector) {
     this._name = data.name;
     this._link = data.link;
     this._selector = selector;
-    this._handleCardClick = handleCardClick;
     this._cardImage = '.element_image';
   }
 
@@ -26,8 +26,12 @@ export class Card {
     this._element.querySelector('.element__trash-icon').addEventListener('click', () =>{
       this._removeCardElement();
     })
+
     this._cardImage.addEventListener('click', () =>{
-      this._handleCardClick(this._name, this._link);
+
+      const createPopup = new PopupWithImage(this._name, this._link,'.popup_type_image');
+      createPopup.open();
+      createPopup.setEventListener();
     })
   }
 

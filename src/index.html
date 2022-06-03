@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./page/index.css">
   <title>Учебный проект по JavaScript. Студент - Митягин Вячеслав</title>
 </head>
 <body class="page">
 
   <!-- Header сайта-->
   <header class="header">
-    <img class="header__logo" src="./images/header__logo.svg" alt="Логотип проекта Место">
+    <img class="header__logo" src="<%=require('../images/header__logo.svg')%>" alt="Логотип проекта Место">
   </header>
   <!-- Главная секция сайта-->
   <main>
@@ -18,7 +17,7 @@
     <section class="profile">
 
       <div class="profile__side-left">
-        <img class="profile__avatar" src="./images/profile__avatar.jpg" alt="Фотография пользователя">
+        <img class="profile__avatar" src="<%=require('../images/profile__avatar.jpg')%>" alt="Фотография пользователя">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__career">Исследователь океана</p>
@@ -42,8 +41,8 @@
   <!-- Темплейт карточки-->
   <template class="template template__six-boxes">
     <li class="element">
-      <img class="element__trash-icon" src="./images/Trash__icon.svg" alt="иконка удаления карточки">
-      <img class="element__image" src="./images/elements__image_dagestan.jpg" alt="Изображение места путешествия">
+      <img class="element__trash-icon" src="<%=require('../images/Trash__icon.svg')%>" alt="иконка удаления карточки">
+      <img class="element__image" src="<%=require('../images/elements__image_dagestan.jpg')%>" alt="Изображение места путешествия">
       <h2 class="element__title">Дагестан</h2>
       <button class="element__button" type="button">
       </button>
@@ -84,11 +83,10 @@
   <!--Всплывающее изображение-->
   <section class="popup popup_type_image">
     <div class="popup__box single">
-      <img class="popup__picture" src="./images/elements__image_dagestan.jpg" alt="Изображение из путешествия">
+      <img class="popup__picture" src="<%=require('../images/elements__image_dagestan.jpg')%>" alt="Изображение из путешествия">
       <h2 class="popup__signature">Проверка</h2>
       <button class="popup__button-cross single__cross" type="button"></button>
     </div>
   </section>
-  <script src="./scripts/index.js" type="module"></script>
 </body>
 </html>
