@@ -1,11 +1,20 @@
-import PopupWithImage from "./PopupWithImage.js";
-
 export class Card {
-  constructor(data, selector) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor(data, selector, rendererPopupImage) {
+    this._name = data.titleCard;
+    this._link = data.linkCard;
     this._selector = selector;
-    this._cardImage = '.element_image';
+    this.rendererPopupImage = rendererPopupImage;
+  }
+
+  generateElement() {
+    this._element = this._getElement();
+    this._setEventListener();
+
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._element.querySelector('.element__title').textContent = this._name;
+
+    return this._element;
   }
 
   _getElement() {
@@ -20,37 +29,25 @@ export class Card {
   }
 
   _setEventListener() {
-    this._element.querySelector('.element__button').addEventListener('click', () =>{
+    this._button = this._element.querySelector('.element__button');
+    this._trashButton = this._element.querySelector('.element__trash-icon');
+
+    this._button.addEventListener('click', () =>{
       this._handleLikeActive();
     })
-    this._element.querySelector('.element__trash-icon').addEventListener('click', () =>{
+    this._trashButton.addEventListener('click', () =>{
       this._removeCardElement();
     })
 
-    this._cardImage.addEventListener('click', () =>{
-
-      const createPopup = new PopupWithImage(this._name, this._link,'.popup_type_image');
-      createPopup.open();
-      createPopup.setEventListener();
-    })
+    this._cardImage.addEventListener('click', this.rendererPopupImage);
   }
 
   _handleLikeActive() {
-    this._element.querySelector('.element__button').classList.toggle('element__button_active');
+    this._button.classList.toggle('element__button_active');
   }
 
   _removeCardElement() {
     this._element.remove();
   }
 
-  generateElement() {
-    this._element = this._getElement();
-    this._setEventListener();
-
-    this._cardImage.src = this._link;
-    this._cardImage.alt = this._name;
-    this._element.querySelector('.element__title').textContent = this._name;
-
-    return this._element;
-  }
 }
