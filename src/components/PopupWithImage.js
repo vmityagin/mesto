@@ -7,12 +7,10 @@ export default class PopupWithImage extends Popup {
     this.elementPopupSignature = this._popup.querySelector('.popup__signature');
 	}
 
-  open(name, link) {
-    this.nameImage = name;
-    this.linkImage = link;
-    this.elementPopupPicture.src = this.linkImage;
-    this.elementPopupSignature.alt = this.nameImage;
-    this.elementPopupSignature.textContent = this.nameImage;
+  open(item) {
+    this.elementPopupPicture.src = item.linkCard;
+    this.elementPopupSignature.alt = item.nameCard;
+    this.elementPopupSignature.textContent = item.nameCard;
     super.open();
   }
   }

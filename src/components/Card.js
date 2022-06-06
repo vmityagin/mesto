@@ -25,7 +25,8 @@ export class Card {
     .cloneNode(true);
 
     this._cardImage = cardElement.querySelector('.element__image');
-    return this._element = cardElement;
+    this._element = cardElement;
+    return this._element;
   }
 
   _setEventListener() {

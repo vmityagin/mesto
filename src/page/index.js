@@ -82,12 +82,12 @@ const cardsList = new Section({
 domCardContainer
 );
 
-const createPopup = new PopupWithImage('.popup_type_image');
+const popupImage = new PopupWithImage('.popup_type_image');
+popupImage.setEventListener();
 
 function createCard(item) {
   const newCardContainer = new Card(item, '.template__six-boxes', () => {
-    createPopup.open(item.name, item.link);
-    createPopup.setEventListener();
+    popupImage.open(item);
   });
   const newCardElement = newCardContainer.generateElement();
   return newCardElement;
