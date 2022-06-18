@@ -17,6 +17,7 @@
     <section class="profile">
 
       <div class="profile__side-left">
+        <div class="profile__cover"></div>
         <img class="profile__avatar" src="<%=require('../images/profile__avatar.jpg')%>" alt="Фотография пользователя">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -44,8 +45,10 @@
       <img class="element__trash-icon" src="<%=require('../images/Trash__icon.svg')%>" alt="иконка удаления карточки">
       <img class="element__image" src="<%=require('../images/elements__image_dagestan.jpg')%>" alt="Изображение места путешествия">
       <h2 class="element__title">Дагестан</h2>
-      <button class="element__button" type="button">
-      </button>
+      <div class="element__group">
+        <button class="element__button" type="button"></button>
+        <p class="element__count">0</p>
+      </div>
     </li>
   </template>
 
@@ -69,16 +72,38 @@
   <section class="popup popup_type_new-card">
     <form class="form single" name="profile-card" novalidate>
       <h2 class="form__title">Новое место</h2>
-      <input id="title-input" class="form__input form__input_type_title" type="text" name="titleCard" placeholder="Название" value="" minlength="2" required>
+      <input id="title-input" class="form__input form__input_type_title" type="text" name="name" placeholder="Название" value="" minlength="2" required>
       <span class="form__input-error title-input-error"></span>
 
-      <input id="link-input" class="form__input form__input_type_link" type="url" name="linkCard" placeholder="Ссылка на картинку" value="" required>
+      <input id="link-input" class="form__input form__input_type_link" type="url" name="link" placeholder="Ссылка на картинку" value="" required>
       <span class="form__input-error link-input-error"></span>
 
       <button class="form__button form__submit form__button_type_create" type="submit" >Создать</button>
       <button class="form__button form__button_type_cross single__cross" type="button"></button>
     </form>
   </section>
+
+    <!--Всплывающее окно аватара-->
+    <section class="popup popup_type_avatar">
+      <form class="form single" name="profile-avatar" novalidate>
+        <h2 class="form__title">Обновить аватар</h2>
+
+        <input id="link-input" class="form__input form__input_type_link" type="url" name="link" placeholder="Ссылка для фотографии" value="" required>
+        <span class="form__input-error link-input-error"></span>
+
+        <button class="form__button form__submit form__button_type_save" type="submit" >Сохранить</button>
+        <button class="form__button form__button_type_cross single__cross" type="button"></button>
+      </form>
+    </section>
+
+    <!--Всплывающее окно подтверждения удаления карточки-->
+    <section class="popup popup_type_confirm">
+      <form class="form single" name="confirm-form" novalidate>
+        <h2 class="form__title form__title_confirm">Вы уверены?</h2>
+        <button class="form__button form__submit form__button_type_confirm" type="submit" >Да</button>
+        <button class="form__button form__button_type_cross single__cross" type="button"></button>
+      </form>
+    </section>
 
   <!--Всплывающее изображение-->
   <section class="popup popup_type_image">

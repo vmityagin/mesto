@@ -9,7 +9,6 @@ export class FormValidator {
     this._errorClass = config.errorClass;
   }
 
-
   enableValidation() {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();

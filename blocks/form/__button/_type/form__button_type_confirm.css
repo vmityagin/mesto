@@ -1,4 +1,4 @@
-.form__button_type_save {
+.form__button_type_confirm {
   padding: 0;
   width: 358px;
   min-height: 50px;
@@ -14,7 +14,7 @@
 }
 
 @media screen and (max-width: 580px) {
-  .form__button_type_save {
+  .form__button_type_confirm {
     width: 238px;
     min-height: 46px;
     font-size: 14px;
@@ -22,7 +22,7 @@
   }
 }
 
-.form__button_type_save:hover {
+.form__button_type_confirm:hover {
   opacity: 0.8;
   cursor: pointer;
 }

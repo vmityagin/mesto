@@ -8,9 +8,9 @@ export default class PopupWithImage extends Popup {
 	}
 
   open(item) {
-    this.elementPopupPicture.src = item.linkCard;
-    this.elementPopupSignature.alt = item.nameCard;
-    this.elementPopupSignature.textContent = item.nameCard;
+    this.elementPopupPicture.src = item.link;
+    this.elementPopupSignature.alt = item.name;
+    this.elementPopupSignature.textContent = item.name;
     super.open();
   }
   }
