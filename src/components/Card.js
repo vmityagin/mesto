@@ -40,34 +40,33 @@ export class Card {
     return this._element;
   }
 
+  getStatusIdUser(booleanStatus) {
+    this._booleanStatus = booleanStatus;
+  }
+
   _setEventListener() {
     this._button = this._element.querySelector('.element__button');
     this._trashButton = this._element.querySelector('.element__trash-icon');
-    if (this._ownerId === 'f9d4ba8aaa4282cc59097b10') {
+    if (this._booleanStatus) {
       this._trashButton.classList.add('element__trash-icon_active');
     }
 
     this._button.addEventListener('click', () =>{
-      this._handleLikeActive();
+      if (!this._button.classList.contains('element__button_active')) {
+        this.handlerLikeActive(this.data);
+      } else {
+        this.handlerLikeNotActive(this.data);
+      }
     })
     this._trashButton.addEventListener('click', () =>{
-      this.renderPopupConfirm(this._cardId);
+      this.renderPopupConfirm(this._cardId, this._element);
     })
 
     this._cardImage.addEventListener('click', this.rendererPopupImage);
   }
 
-  _handleLikeActive() {
+  toggleButtonLike() {
     this._button.classList.toggle('element__button_active');
-    if (this._button.classList.contains('element__button_active')) {
-      this.handlerLikeActive(this.data);
-    } else {
-      this.handlerLikeNotActive(this.data);
-    }
-  }
-
-  _removeCardElement() {
-    this._element.remove();
   }
 
 }

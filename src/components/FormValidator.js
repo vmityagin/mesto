@@ -77,4 +77,8 @@ export class FormValidator {
       this._hideInputError();
     })
   }
+
+  renderLoading(textButtonLoad) {
+    this._buttonElement.textContent = textButtonLoad;
+  }
 }

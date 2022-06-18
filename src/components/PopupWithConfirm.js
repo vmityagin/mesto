@@ -7,11 +7,22 @@ export default class PopupWithConfirm extends Popup {
     this._form = this._popup.querySelector('.form');
 	}
 
-  setEventListener(idCard) {
+  setEventListener() {
     super.setEventListener();
     this._form.addEventListener('submit', () => {
-      this.callbackSubmitForm(idCard);
-      this.close();
+      this.callbackSubmitForm(this._idCard);
     });
+  }
+
+  saveIdCard(idCard) {
+    return this._idCard = idCard;
+  }
+
+  getElementCard(element) {
+    this._element = element;
+  }
+
+  returnElement() {
+    return this._element;
   }
 }

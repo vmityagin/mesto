@@ -1,12 +1,11 @@
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithAvatar from '../components/PopupWithAvatar.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithConfirm from '../components/PopupWithConfirm.js';
 import { Section } from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
-import { Api } from './Api.js';
+import { Api } from '../components/Api.js';
 
 import {
   domCardContainer,
@@ -14,13 +13,47 @@ import {
   addNewCardButton,
   inputNameForm,
   inputCareerForm,
-  nameUserDom,
-  careerUserDom,
-  avatarUserDom,
   changeAvatarPicture
 } from '../utils/constants.js';
 
 import './index.css';
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-43',
+  headers: {
+    'Content-Type': 'application/json',
+    authorization: 'b34abb99-bb9c-49f0-b4ee-93cb66614104'
+  }
+});
+
+Promise.all([
+  api.getInfromationUser(),
+  api.loadCardImages()
+])
+.then(([info, initialCards]) => {
+  classUserInfo.setUserInfo(info);
+  const cardsList = new Section({
+    renderer: (item) => {
+      if (info._id === item.owner._id) {
+        cardsList.addItem(createCard(item, true));
+      } else {
+        cardsList.addItem(createCard(item, false))
+      }
+    }
+  },
+  domCardContainer
+  );
+  cardsList.renderItems(initialCards);
+})
+.catch((err) => {
+  console.log(err);
+});
+
+const classUserInfo = new UserInfo({
+  selectorName: '.profile__name',
+  selectorCareer: '.profile__career',
+  selectorAvatar: '.profile__avatar'
+})
 
 const config = {
   formSelector: '.form',
@@ -46,49 +79,54 @@ const enableValidation = (config) => {
 
 enableValidation(config);
 
-/* const cardsList = new Section({
-  data: initialCards,
-  renderer: (item) => {
-    cardsList.addItem(createCard(item));
-  }
-},
-domCardContainer
-);
-
-cardsList.renderItems(); */
 
 const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListener();
 
 const popupConfirm = new PopupWithConfirm('.popup_type_confirm', (idCardClass) => {
-  api.deleteCard('https://mesto.nomoreparties.co/v1/cohort-43/cards/', `${idCardClass}`);
+  formValidators['confirm-form'].renderLoading('Удаляю...');
+  api.deleteCard(idCardClass)
+  .then(() => {
+    popupConfirm.close();
+    const element = popupConfirm.returnElement();
+    element.remove();
+  })
+  .catch((err) => {console.log(err)})
+  .finally(() => {formValidators['confirm-form'].renderLoading('Да');});
 });
 
-function createCard(item) {
+popupConfirm.setEventListener();
+
+function createCard(item, checkUserId) {
   const newCardContainer = new Card(item, '.template__six-boxes', () => {
     popupImage.open(item);
-  }, (idCard) => {
+  }, (idCard, elementCard) => {
     popupConfirm.open();
-    popupConfirm.setEventListener(idCard);
+    popupConfirm.saveIdCard(idCard);
+    popupConfirm.getElementCard(elementCard);
   },
   (data) => {
-    api.likePut('https://mesto.nomoreparties.co/v1/cohort-43/cards/', `${data._id}`)
+    api.likePut(data._id)
     .then((res) => {
       newCardContainer.changeNumberLikes(res);
+      newCardContainer.toggleButtonLike();
     })
     .catch((err) => {
       console.log(err);
     })
   },
   (data) => {
-    api.likeDelete('https://mesto.nomoreparties.co/v1/cohort-43/cards/', `${data._id}`)
+    api.likeDelete(data._id)
     .then((res) => {
       newCardContainer.changeNumberLikes(res);
+      newCardContainer.toggleButtonLike();
     })
     .catch((err) => {
       console.log(err);
     })
-  });
+  }
+  );
+  newCardContainer.getStatusIdUser(checkUserId);
   const newCardElement = newCardContainer.generateElement();
   return newCardElement;
 }
@@ -96,46 +134,37 @@ function createCard(item) {
 const formNewCard = new PopupWithForm({
   selectorPopup: '.popup_type_new-card',
   callbackSubmitForm: (formdata) => {
-    renderLoading(formNewCard, true, 'Создаю...');
-    api.addNewCard('https://mesto.nomoreparties.co/v1/cohort-43/cards', formdata)
-    .then((res) => {
-      const createCardList = new Section({
-        data: res,
-        renderer: (item) => {
-          cardsList.addItem(createCard(item));
-        },
-        domCardContainer
-      });
-      createCardList.addItem(createCard(res));
+    formValidators['profile-card'].renderLoading('Создаю...');
+    api.addNewCard(formdata)
+    .then((newCard) => {
+      const cardsListDomContainer = new Section(()=>{},domCardContainer);
+      cardsListDomContainer.addItem(createCard(newCard));
+      formNewCard.close();
     })
     .catch((err) => {console.log(err);})
-    .finally(() => {renderLoading(formNewCard, true, 'Создать')})
+    .finally(() => {formValidators['profile-card'].renderLoading('Создать');})
   }
 
 });
 
 formNewCard.setEventListener();
 
-const formNewAvatar = new PopupWithAvatar({
+const formNewAvatar = new PopupWithForm({
   selectorPopup: '.popup_type_avatar',
   callbackSubmitForm: (formdata) => {
-    renderLoading(formNewAvatar, true, 'Сохраняю...');
-    api.changeAvatarPicture('https://mesto.nomoreparties.co/v1/cohort-43/users/me/avatar', formdata.link)
-    .then((res) => {
-      avatarUserDom.src = res.avatar;
+    formValidators['profile-avatar'].renderLoading('Сохраняю...');
+    api.changeAvatarPicture(formdata.link)
+    .then((userInfo) => {
+      classUserInfo.setUserInfo(userInfo);
+      formNewAvatar.close();
     })
-    .catch((err) => {console.log(err);})
-    .finally(() => {renderLoading(formNewAvatar, true, 'Сохранить')});
+    .catch((err) => {console.log(err)})
+    .finally(() => {formValidators['profile-avatar'].renderLoading('Сохранить');});
   }
   }
 )
 
 formNewAvatar.setEventListener();
-
-const classUserInfo = new UserInfo({
-  selectorName: '.profile__name',
-  selectorCareer: '.profile__career',
-})
 
 addNewCardButton.addEventListener('click', () => {
   formValidators['profile-card'].resetValidation();
@@ -150,16 +179,17 @@ changeAvatarPicture.addEventListener('click', () => {
 const formProfileUser = new PopupWithForm({
   selectorPopup: '.popup_type_edit',
   callbackSubmitForm: (item) => {
-    renderLoading(formProfileUser, true, 'Сохраняю...');
-    api.changeProfile('https://mesto.nomoreparties.co/v1/cohort-43/users/me', item)
-    .then(() => {
-      changeUserInfoFromServer();
+    formValidators['profile-edit'].renderLoading('Сохраняю...');
+    api.changeProfile(item)
+    .then((res) => {
+      classUserInfo.setUserInfo(res);
+      formProfileUser.close();
     })
     .catch((err) => {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(formProfileUser, true, 'Сохранить');
+      formValidators['profile-edit'].renderLoading('Сохранить');
     });
 
   }
@@ -167,51 +197,10 @@ const formProfileUser = new PopupWithForm({
 
 formProfileUser.setEventListener();
 
-function renderLoading(classSelector, isLoading, textButtonLoad) {
-  if (isLoading) {
-    classSelector._form.querySelector('.form__submit').textContent = textButtonLoad;
-  } else {
-    classSelector._form.querySelector('.form__submit').textContent = textButtonLoad;
-  }
-};
-
 changeProfileIcon.addEventListener('click', () => {
   formValidators['profile-edit'].resetValidation();
   const domUserInformationContainer = classUserInfo.getUserInfo();
   inputNameForm.value = domUserInformationContainer.name;
   inputCareerForm.value = domUserInformationContainer.career;
   formProfileUser.open();
-})
-
-const api = new Api();
-
-function changeUserInfoFromServer() {
-  api.getInfromationUser('https://mesto.nomoreparties.co/v1/cohort-43/users/me')
-    .then((result) => {
-      nameUserDom.textContent = result.name;
-      careerUserDom.textContent = result.about;
-      avatarUserDom.src = result.avatar;
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-}
-
-changeUserInfoFromServer();
-
-api.loadCardImages('https://mesto.nomoreparties.co/v1/cohort-43/cards')
-.then((result) => {
- console.log(result);
- const cardsList = new Section({
-  data: result,
-  renderer: (item) => {
-    cardsList.addItem(createCard(item));
-  }
-},
-domCardContainer
-);
-cardsList.renderItems();
-})
-.catch((err) => {
-  console.log(err);
 })
