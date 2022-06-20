@@ -33,4 +33,8 @@ export default class Popup {
       }
     });
   }
+
+  renderLoading(textButtonLoad) {
+    this._form.querySelector('.form__submit').textContent = textButtonLoad;
+  }
   }

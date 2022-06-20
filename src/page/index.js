@@ -13,7 +13,8 @@ import {
   addNewCardButton,
   inputNameForm,
   inputCareerForm,
-  changeAvatarPicture
+  changeAvatarPicture,
+  info
 } from '../utils/constants.js';
 
 import './index.css';
@@ -32,22 +33,23 @@ Promise.all([
 ])
 .then(([info, initialCards]) => {
   classUserInfo.setUserInfo(info);
-  const cardsList = new Section({
-    renderer: (item) => {
-      if (info._id === item.owner._id) {
-        cardsList.addItem(createCard(item, true));
-      } else {
-        cardsList.addItem(createCard(item, false))
-      }
-    }
-  },
-  domCardContainer
-  );
-  cardsList.renderItems(initialCards);
+  cardsList.renderItems(initialCards, info);
 })
 .catch((err) => {
   console.log(err);
 });
+
+const cardsList = new Section({
+  renderer: (item, info) => {
+    if (info._id === item.owner._id) {
+      cardsList.addItem(createCard(item, true));
+    } else {
+      cardsList.addItem(createCard(item, false))
+    }
+  }
+},
+domCardContainer
+);
 
 const classUserInfo = new UserInfo({
   selectorName: '.profile__name',
@@ -84,7 +86,7 @@ const popupImage = new PopupWithImage('.popup_type_image');
 popupImage.setEventListener();
 
 const popupConfirm = new PopupWithConfirm('.popup_type_confirm', (idCardClass) => {
-  formValidators['confirm-form'].renderLoading('Удаляю...');
+  popupConfirm.renderLoading('Удаляю...');
   api.deleteCard(idCardClass)
   .then(() => {
     popupConfirm.close();
@@ -92,7 +94,7 @@ const popupConfirm = new PopupWithConfirm('.popup_type_confirm', (idCardClass) =
     element.remove();
   })
   .catch((err) => {console.log(err)})
-  .finally(() => {formValidators['confirm-form'].renderLoading('Да');});
+  .finally(() => {popupConfirm.renderLoading('Да');});
 });
 
 popupConfirm.setEventListener();
@@ -103,7 +105,7 @@ function createCard(item, checkUserId) {
   }, (idCard, elementCard) => {
     popupConfirm.open();
     popupConfirm.saveIdCard(idCard);
-    popupConfirm.getElementCard(elementCard);
+    popupConfirm.setElementCard(elementCard);
   },
   (data) => {
     api.likePut(data._id)
@@ -134,15 +136,14 @@ function createCard(item, checkUserId) {
 const formNewCard = new PopupWithForm({
   selectorPopup: '.popup_type_new-card',
   callbackSubmitForm: (formdata) => {
-    formValidators['profile-card'].renderLoading('Создаю...');
+    formNewCard.renderLoading('Создаю...');
     api.addNewCard(formdata)
     .then((newCard) => {
-      const cardsListDomContainer = new Section(()=>{},domCardContainer);
-      cardsListDomContainer.addItem(createCard(newCard));
+      cardsList.addItem(createCard(newCard, true));
       formNewCard.close();
     })
     .catch((err) => {console.log(err);})
-    .finally(() => {formValidators['profile-card'].renderLoading('Создать');})
+    .finally(() => {formNewCard.renderLoading('Создать');})
   }
 
 });
@@ -152,14 +153,14 @@ formNewCard.setEventListener();
 const formNewAvatar = new PopupWithForm({
   selectorPopup: '.popup_type_avatar',
   callbackSubmitForm: (formdata) => {
-    formValidators['profile-avatar'].renderLoading('Сохраняю...');
+    formNewAvatar.renderLoading('Сохраняю...');
     api.changeAvatarPicture(formdata.link)
     .then((userInfo) => {
       classUserInfo.setUserInfo(userInfo);
       formNewAvatar.close();
     })
     .catch((err) => {console.log(err)})
-    .finally(() => {formValidators['profile-avatar'].renderLoading('Сохранить');});
+    .finally(() => {formNewAvatar.renderLoading('Сохранить');});
   }
   }
 )
@@ -179,7 +180,7 @@ changeAvatarPicture.addEventListener('click', () => {
 const formProfileUser = new PopupWithForm({
   selectorPopup: '.popup_type_edit',
   callbackSubmitForm: (item) => {
-    formValidators['profile-edit'].renderLoading('Сохраняю...');
+    formProfileUser.renderLoading('Сохраняю...');
     api.changeProfile(item)
     .then((res) => {
       classUserInfo.setUserInfo(res);
@@ -189,7 +190,7 @@ const formProfileUser = new PopupWithForm({
       console.log(err);
     })
     .finally(() => {
-      formValidators['profile-edit'].renderLoading('Сохранить');
+      formProfileUser.renderLoading('Сохранить');
     });
 
   }

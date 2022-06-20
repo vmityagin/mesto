@@ -6,4 +6,6 @@ const changeAvatarPicture = document.querySelector ('.profile__cover');
 const inputNameForm = document.querySelector('.form__input_type_name');
 const inputCareerForm = document.querySelector('.form__input_type_career');
 
-export {domCardContainer, changeProfileIcon, addNewCardButton, inputNameForm, inputCareerForm, changeAvatarPicture};
+const info = {};
+
+export {domCardContainer, changeProfileIcon, addNewCardButton, inputNameForm, inputCareerForm, changeAvatarPicture, info};

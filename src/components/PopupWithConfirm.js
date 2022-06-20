@@ -18,11 +18,15 @@ export default class PopupWithConfirm extends Popup {
     return this._idCard = idCard;
   }
 
-  getElementCard(element) {
+  setElementCard(element) {
     this._element = element;
   }
 
   returnElement() {
     return this._element;
+  }
+
+  renderLoading(textButtonLoad) {
+    super.renderLoading(textButtonLoad);
   }
 }
